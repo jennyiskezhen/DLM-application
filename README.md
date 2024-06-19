@@ -1,4 +1,7 @@
 # Mannual for DLM-application
+
+Currently, the DLM application only supports daily water quality data. 
+
 ## Data
 The dataset should have three columns:
 
