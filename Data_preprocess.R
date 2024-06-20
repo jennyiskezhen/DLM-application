@@ -18,7 +18,9 @@ Data_preprocess <- function(df){
   #-------------------------------------------------
   
   #---- remove the beginning 0 from log transformation ----
-  Xt.1 <- log(Xt.0)
+  NXt.0 <- Xt.0/median(Xt.0,na.rm = T)
+  Xt.1 <- log(NXt.0)
+  # Xt.1 <- log(Xt.0)
   Yt.1 <- log(Yt.0)
   
   x.non0 <- which(Xt.1!=0)[1]

@@ -1,19 +1,34 @@
-# DLM-application
+# DLMs Application
 
-The dynamic linear model (DLM) can be used for both predicting water quality values and as a diagnostic tool to quantify the dynamics in the underlying relationship between streamflow and water quality data. The model can generate time-varying rating curve parameters at the time step of the data.
+The dynamic linear models (DLMs) can be used for both predicting water quality values and as a diagnostic tool to quantify the dynamics in the underlying relationship between streamflow and water quality data. 
 
-This file shows you how to apply DLM to your data and perform time-series analysis.
+DLMs have been applied to characterize the multi-scale suspended sediment trasnport dynamics across dataset with a wide range of conditions. DLMs produced more accurate suspended sediment concentration estimates than many static regression models (Wang et al., 2021a), characterized the dynamicity of sediment and flow relationship across catchments with diverse properties (Wang and Steinschneider, 2022), as well as captured the turning point of sediment regime shift attributed to stream restoration projects (Wang et al., 2021b). Apart from suspended sediment application, DLMs are suitable for any water quality constituents when the variations of the constituent levels are predominantly influenced by streamflow. The DLM parameters fitted on the constituent and flow rating curve relationship (i.e., intercept and slope) are updated at time step of the data and contain information on the changes of water quality source availability and the trasnport power of the river. 
 
-## Data
+For more information on the model algorithm and previous applications, please refer to the following paper:
+
+1. Wang, K., & Steinschneider, S. (2022). Characterization of Multi-Scale Fluvial SuspendedSediment Transport Dynamics Across the United States Using Turbidity and Dynamic Regression.*Water Resources Research*, 58(10). <https://doi.org/10.1029/2021WR031863>
+2. Wang, K., Davis, D., & Steinschneider, S. (2021b). Evaluating suspended sediment and turbidityreduction projects in a glacially conditioned catchment through dynamic regression and fluvialprocess‐based modelling. *Hydrological Processes*, 35(9). <https://doi.org/10.1002/hyp.14351>
+3. Wang, K., Gelda, R. K., Mukundan, R., & Steinschneider, S. (2021a). Inter-model Comparison ofTurbidity-Discharge Rating Curves and the Implications for Reservoir Operations Management.*Journal of the American Water Resources Association*, 57(3). <https://doi.org/10.1111/1752-1688.12906>
+4. Ahn, K.-H., Yellen, B. and Steinschneider, S. (2017). Dynamic linear models to explore time-varying suspended sediment-discharge rating curves, *Water Resources Research*, 53(6). <https://doi.org/10.1002/2017WR020381>
+
+<mark>This file shows you how to apply DLMs to your data and generate DLM parameter time-series that capture the changes in the availability of water quality source supply (i.e., the intercept parameter).</mark> While DLMs can be applied to dataset with any time steps, daily data are found to produce more stable and interpretable results. When the time steps are small, e.g. 15-min, the generated DLM parameter time-series may reflect the uncertainties of the dataset, rather than the changes of underlying relationship between the constituent and flow conditions. 
+
+> Please note that the code is a simplified version of the one used for the published results. Modification of the code may be required to optimize the results.
+
+## Data 
 The dataset should have three columns in the following order:
 
-| Date | Flow | Water Quality |
+| Date | Flow | Water Quality Data |
 | :--------: | :------: | :----: |
 |    ...   |  ...   |  ...  |
 
+The dataset used to run the DLMs are in the folder **`data/Data_test.csv`**. Please replace it with your own data.
 
 ## Working Directory
+Once all the files are downloaded in your local directory, open **`main.R`**. You can run the file from  the source right away. The following code will make sure you working directory is set at the current folder. 
+
 ```bash
 this.dir <- dirname(parent.frame(2)$ofile)
 setwd(this.dir)
 ```
+After the code finishs running, the DLM results will be plotted and save in the **`DLM_results.jpeg`** file

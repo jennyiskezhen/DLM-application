@@ -11,8 +11,8 @@ source("NSE.R")
 
 ############# specification #############
 ### Data format: Date, Flow, Constituent ###
-sq.sp <- 2 # 1) linear structure; 2) quadratic structure
-train.sp <- 0.5 # training for delta: percent; # of years
+sq.sp <- 1 # 1) linear structure; 2) quadratic structure
+train.sp <- 0.8 # training for delta: percent; # of years
 ######################
 
 if (sq.sp == 1){
@@ -21,7 +21,7 @@ if (sq.sp == 1){
   m.lab <- "Quadratic"
 }
 
-Data <- read.csv("data/Data_test.csv")
+Data <- read.csv("data/Data_use.csv")
 
 #--------- preprocess data -----
 df <- Data_preprocess(Data)
@@ -31,10 +31,9 @@ x <- df$Xt
 y <- df$Yt 
 flow <- df$Flow
 
-#----------- DLM calibration -----
-df.delta <- DLM_cali(df=df, train.sp, sq = sq.sp)
-delta0 <- df.delta$Delta0
-delta1 <- df.delta$Delta1
+#----------- DLM hyperparameter -----
+delta0 <- 0.99
+delta1 <- 0.999999
 #-----------------------------
 
 #----- run DLM model -----
@@ -45,6 +44,9 @@ R2 <- NSE(exp(y), exp(DLM.sp$f))
 #------------------------
 
 #----- print results ----------
+filename <- paste0("DLM_results.jpeg")
+jpeg(filename, width = 10, height = 7, units = "in", res = 300)
+
 par(mfrow=c(2,2),mar=c(2.5,2.5,1,1), mgp=c(1.5,0.5,0))
 par(cex.lab = 1, cex.sub = 1, cex.axis = 1, cex = 1, font = 1) 
 options(scipen=10)
@@ -59,21 +61,12 @@ plot(exp(DLM.sp$f), exp(y), log = "xy",
 grid(NULL, col = "lightgray", lty = "dotted",
      lwd = par("lwd"), equilogs = FALSE)
 
-legend("topleft",
+legend("bottomright",
        legend = c(
          paste0("Model: ", m.lab),
          paste0("Train (pct/years): ", train.sp),
-         paste0("delta0: ", delta0),
-         paste0("delta1: ", delta1)
-       ), inset=c(-0.05,0), 
-       cex = 0.8,
-       bty = "n")
-
-legend("bottomright",
-       legend = c(
-         paste0("NSE(log): ", round(R2.log,2)),
-         paste0("NSE: ", round(R2,2))
-       ),
+         paste0("NSE(log): ", round(R2.log,2))
+       ), inset=c(0,0), 
        cex = 0.8,
        bty = "n")
 
@@ -95,14 +88,15 @@ legend("topright",
        bty = "n")
 
 plot(df$Date, DLM.sp$m[,1],
-     ylim = c(-10,10),  type = "l",
+     ylim = c(-2,6),  type = "l",
      xlab = "Date", ylab="Intercept")
 grid(NULL, col = "lightgray", lty = "dotted",
      lwd = par("lwd"), equilogs = FALSE)
 
 plot(df$Date, DLM.sp$m[,2],
-     ylim = c(-10,10),  type = "l",
+     ylim = c(-5,5),  type = "l",
      xlab= "Date", ylab="Slope")
 grid(NULL, col = "lightgray", lty = "dotted",
      lwd = par("lwd"), equilogs = FALSE)
 
+dev.off()
