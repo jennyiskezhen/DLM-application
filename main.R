@@ -11,13 +11,12 @@ source("NSE.R")
 ############# specification #############
 ### Data format: Date, Flow, Constituent ###
 sq.sp <- 1 # 1) linear structure; 2) quadratic structure
-train.sp <- 0.8 # training for delta: percent; # of years
 ######################
 
 if (sq.sp == 1){
-  m.lab <- "Linear" 
+  m.lab <- "Linear formulation" 
 } else if (sq.sp == 2){
-  m.lab <- "Quadratic"
+  m.lab <- "Quadratic formulation"
 }
 
 Data <- read.csv("data/Data_use.csv")
@@ -63,7 +62,6 @@ grid(NULL, col = "lightgray", lty = "dotted",
 legend("bottomright",
        legend = c(
          paste0("Model: ", m.lab),
-         paste0("Train (pct/years): ", train.sp),
          paste0("NSE(log): ", round(R2.log,2))
        ), inset=c(0,0), 
        cex = 0.8,
