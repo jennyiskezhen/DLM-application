@@ -32,4 +32,4 @@ setwd(this.dir)
 ```
 
 ## Results
-After the code finishs running, the DLM results will be plotted and saved in the **`DLM_results.jpeg`** file. You can examine changes in the intercept parameter time-series and compare the timing with known disturbance events or restoration efforts. 
+After the code finishes running, the DLM results will be plotted and saved in the **`DLM_results.jpeg`** file. You can examine changes in the intercept parameter time-series and compare the timing with known disturbance events or restoration efforts. 
