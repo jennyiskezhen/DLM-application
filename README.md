@@ -1,8 +1,8 @@
 # DLMs Application - Intercept Parameter Time-series
 
-The dynamic linear models (DLMs) can be used for both predicting water quality values and as a diagnostic tool to quantify the dynamics in the underlying relationship between water quality data and streamflow.  DLMs can be applied for investigating soil erosional processes such as the occurrence of an erosional event and the lasting elevated sediment yield after the event, sudden increase of water quality constituent level and any persistent effects, as well as the effectiveness and longevity of stream restoration projects.      
+The dynamic linear models (DLMs) can be used for both predicting constituent values and as a diagnostic tool to quantify the dynamics in the underlying relationship between constituent levels and independent variable such as streamflow.  DLMs can be applied for investigating soil erosional processes such as the occurrence of an erosional event and the lasting elevated sediment yield after the event, sudden increase of constituent level and any persistent effects, as well as the effectiveness and longevity of stream restoration projects.      
 
-DLMs have been applied to characterize the multi-scale suspended sediment transport dynamics across datasets with a wide range of conditions. DLMs produced more accurate suspended sediment concentration estimates than many static regression models (Wang et al., 2021a), characterized the dynamicity of sediment and flow relationship across catchments with diverse properties (Wang and Steinschneider, 2022), as well as captured the turning point of sediment regime shift attributed to stream restoration projects (Wang et al., 2021b). Apart from suspended sediment application, DLMs are suitable for any water quality constituents when the variations of the constituent levels are predominantly influenced by streamflow. The DLM parameters fitted on the constituent and flow rating curve relationship (i.e., intercept and slope) are updated at time step of the data and contain information on the changes of water quality source availability and the transport power of the river. 
+DLMs have been applied to characterize the multi-scale suspended sediment transport dynamics across datasets with a wide range of conditions. DLMs produced more accurate suspended sediment concentration estimates than many static regression models (Wang et al., 2021a), characterized the dynamicity of sediment and flow relationship across catchments with diverse properties (Wang and Steinschneider, 2022), as well as captured the turning point of sediment regime shift attributed to stream restoration projects (Wang et al., 2021b). Apart from suspended sediment application, DLMs are suitable for any constituents when the variations of the constituent levels are predominantly influenced by streamflow. The DLM parameters fitted on the constituent and flow rating curve relationship (i.e., intercept and slope) are updated at time step of the data and contain information on the changes of constituent source availability and the transport power of the river. 
 
 For more information on the model algorithm and previous applications, please refer to the following papers:
 
@@ -10,14 +10,14 @@ For more information on the model algorithm and previous applications, please re
 2. Wang, K., Davis, D., & Steinschneider, S. (2021b). Evaluating suspended sediment and turbidityreduction projects in a glacially conditioned catchment through dynamic regression and fluvialprocess‐based modelling. *Hydrological Processes*, 35(9). <https://doi.org/10.1002/hyp.14351>
 3. Wang, K., Gelda, R. K., Mukundan, R., & Steinschneider, S. (2021a). Inter-model Comparison ofTurbidity-Discharge Rating Curves and the Implications for Reservoir Operations Management.*Journal of the American Water Resources Association*, 57(3). <https://doi.org/10.1111/1752-1688.12906>
 
-<mark>The following content shows you how to apply DLMs to your data and generate informative DLM parameter time-series that capture the changes in the water quality source supply availability (i.e., the intercept parameter).</mark> While DLMs can be applied to dataset with any time steps, daily data are found to produce more stable and interpretable results. When the time steps are small, e.g. 15-min, the generated DLM parameter time-series may reflect the uncertainties of the dataset, rather than the changes of underlying relationship between the constituent and flow conditions. 
+<mark>The following content shows you how to apply DLMs to your data and generate informative DLM parameter time-series that capture the changes in the constituent source supply availability (i.e., the intercept parameter).</mark> While DLMs can be applied to dataset with any time steps, daily data are found to produce more stable and interpretable results. When the time steps are small, e.g. 15-min, the generated DLM parameter time-series may reflect the uncertainties of the dataset, rather than the changes of underlying relationship between the constituent and independent variable (e.g., flow) conditions. 
 
 > Please note that the code is a simplified version of the ones used for journal publication. Modification of the code may be required to optimize the results.
 
 ## Data 
 The dataset should have three columns in the following order:
 
-| Date | Flow | Water Quality Data |
+| Date | Independent Variable (Flow) | Constituent Data |
 | :--------: | :------: | :----: |
 |    ...   |  ...   |  ...  |
 
